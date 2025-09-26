@@ -1,9 +1,3 @@
-variable "grub_config" {
-  type        = string
-  description = "path to grub.cfg which should be added to the image"
-  default     = "grub.cfg"
-}
-
 variable "image_type" {
   type        = string
   description = "content of image_type label"
@@ -26,6 +20,16 @@ variable "snapshot_prefix" {
   type        = string
   description = "prefix for the snapshot name (the version number will be appended)"
   default     = "flatcar-"
+}
+
+variable "channel" {
+  type        = string
+  description = "the channel to use for the Flatcar Container Linux image (alpha, beta, stable, lts)"
+  default     = "stable"
+  validation {
+    condition     = contains(["alpha", "beta", "stable", "lts"], var.channel)
+    error_message = "The `channel` variable must be one of 'alpha', 'beta', 'stable', 'lts'."
+  }
 }
 
 variable "version" {

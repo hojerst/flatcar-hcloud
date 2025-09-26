@@ -1,5 +1,5 @@
 data "http" "version" {
-  url = "https://stable.release.flatcar-linux.net/${var.arch}-usr/current/version.txt"
+  url = "https://${var.channel}.release.flatcar-linux.net/${var.arch}-usr/current/version.txt"
 }
 
 locals {
@@ -7,5 +7,5 @@ locals {
   flatcar_version_info = yamldecode(regex_replace(data.http.version.body, "=", ": "))
 
   // dynamically calculate a server type based on arch
-  server_type = var.server_type == "auto" ? (var.arch == "amd64" ? "cx11" : "cax11") : var.server_type
+  server_type = var.server_type == "auto" ? (var.arch == "amd64" ? "cx22" : "cax11") : var.server_type
 }

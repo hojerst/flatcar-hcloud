@@ -1,0 +1,26 @@
+# Ignition config to bootstrap a Flatcar instance on Hetzner
+#
+# Convert to JSON with:
+# docker run -i --rm quay.io/coreos/butane --pretty --strict <ignition.yml
+
+variant: flatcar
+version: 1.1.0
+
+ignition:
+  config:
+    merge:
+      - source: 'http://169.254.169.254/hetzner/v1/userdata'
+
+# systemd:
+#   units:
+#     - name: coreos-metadata.service
+#       enabled: true
+#       dropins:
+#         - name: 10-provider.conf
+#           contents: |
+#             [Unit]
+#             ConditionKernelCommandLine=
+
+#             [Service]
+#             ExecStart=
+#             ExecStart=/usr/bin/coreos-metadata --provider=hetzner --hostname=/etc/hostname --ssh-keys core --attributes=/run/metadata/flatcar
